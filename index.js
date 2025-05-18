@@ -1,11 +1,12 @@
 import express from "express"
 
-import { connectDB } from "./db/connect";
+import { connectDB } from "./db/connect.js";
+import { URLrouter } from "./routes/url.js";
 
 
 const app = express();
 
-PORT = 8001
+const PORT = 8001
 
 
 connectDB("mongodb://localhost/27017/url-shortener")
@@ -17,10 +18,10 @@ connectDB("mongodb://localhost/27017/url-shortener")
     console.log("Can't connect to MongoDB")
 })
 
-app.use()
+app.use("/url",URLrouter)
 
 
 
-app.listen(POST,()=>{
+app.listen(PORT,()=>{
     console.log(`Server is listening at PORT ${8000}`)
 })
