@@ -21,3 +21,10 @@ export async function handleGenerateNewShortUrl(req,res) {
     return res.json({id:shortID})
     
 }
+
+export async function handleGetReq(req,res) {
+    console.log("Entered in get request for the server")
+
+    const showURL = URL.find({})
+    return res.json(showURL)
+}
