@@ -10,7 +10,7 @@ const PORT = 8001
 
 app.use(express.json())
 
-connectDB("mongodb://localhost/27017/url-shortener")
+connectDB("mongodb://127.0.0.1:27017/url-shortener")
 .then(()=>{
     console.log('MongoDB connected')
 })

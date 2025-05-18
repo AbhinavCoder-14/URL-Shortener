@@ -1,8 +1,11 @@
 import shortid from "shortid";
 import mongoose from "mongoose";
+// import {URL} from "../models/url.js"
 
 import { urlSchema } from "../models/url.js";
+
 const URL = mongoose.model("url",urlSchema)
+
 
 
 export async function handleGenerateNewShortUrl(req,res) {
