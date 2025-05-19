@@ -11,5 +11,5 @@ export const URLrouter = express.Router()
 
 URLrouter.post("/",handleGenerateNewShortUrl)
 
-URLrouter.get("/:short-id",handleGetReq)
+URLrouter.get("/:Sid",handleGetReq)
 

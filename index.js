@@ -1,6 +1,6 @@
 import express from "express"
 
-import { connectDB } from "./controller/db/connect.js";
+import { connectDB } from "./db/connect.js";
 import { URLrouter } from "./routes/url.js";
 
 

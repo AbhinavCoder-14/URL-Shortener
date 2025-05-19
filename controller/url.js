@@ -28,14 +28,20 @@ export async function handleGenerateNewShortUrl(req,res) {
 export async function handleGetReq(req,res) {
     console.log("Entered in get request for the server")
 
-    const redirectURL = await URL.findById(req.params.id)
-    // console.log(redirectURL.json.redirectUrl)
-    if (!redirectURL) return res.status(400).json({error : "url not found"})
-    
-    
-    
-    
-    
-    // return res.redirect(redirectURL.redirectUrl)
-    return res.json(redirectURL)
+    const  shortId = req.params.Sid
+    const entry = await URL.findOneAndUpdate(
+        {shortId},
+        
+        {
+            $push:{
+                visitHistory:{
+                    timestamp:Date.now()
+                }
+            }
+        },
+    );
+    console.log(entry.redirectUrl)
+    res.redirect(entry.redirectUrl)
+
 }
+
