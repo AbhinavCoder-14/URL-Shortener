@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 import { urlSchema } from "../models/url.js";
 
-const URL = mongoose.model("url",urlSchema)
+export const URL = mongoose.model("url",urlSchema)
 
 
 
