@@ -45,3 +45,12 @@ export async function handleGetReq(req,res) {
 
 }
 
+export async function getAnalytics(req,res) {
+
+    const shortId = req.params.Sid
+
+    const result = await URL.findOne(shortId)
+
+    return res.json({totalClicks: result.visitHistory.length,analytics : result.visitHistory})
+
+}
