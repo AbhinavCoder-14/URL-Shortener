@@ -11,11 +11,19 @@ export const URL = mongoose.model("url",urlSchema)
 export async function handleGenerateNewShortUrl(req,res) {
 
     const body = req.body;
+    // console.log(body)
 
     const shortID = shortid.generate()
+    const checkerx = await URL.findOne({redirectUrl:body.url})
 
     if(!body.url) return res.status(400).json({ error:"Url is required"})
-
+    else if (checkerx){
+        return res.json({
+        shortId: checkerx.shortId,
+        message: "URL already shortened"
+      });
+    }
+    
     await URL.create({
         shortId: shortID,
         redirectUrl:body.url,
@@ -49,7 +57,7 @@ export async function getAnalytics(req,res) {
 
     const shortId = req.params.Sid
 
-    const result = await URL.findOne(shortId)
+    const result = await URL.findOne({shortId})
 
     return res.json({totalClicks: result.visitHistory.length,analytics : result.visitHistory})
 

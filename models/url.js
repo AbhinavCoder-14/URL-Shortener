@@ -11,6 +11,7 @@ export const urlSchema = new mongoose.Schema({
     redirectUrl:{
         type:String,
         required:true,
+        unique:[true,"Shorturl is already Created"]
     },
     visitHistory:[{ timestamp:{type:Number} }],
 }, {timestamp:true});
