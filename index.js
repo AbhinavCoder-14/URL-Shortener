@@ -4,16 +4,19 @@ import path from "path"
 import { connectDB } from "./db/connect.js";
 import { URLrouter } from "./routes/url.js";
 import { URL } from "./controller/url.js";
+import {staticRoutes} from "./routes/staticRoutes.js"
 
 const app = express();
 
 const PORT = 8001
 
 app.set("view engine","ejs");
+
 app.set("views",path.resolve("./views"))
 
 
 app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 
 connectDB("mongodb://127.0.0.1:27017/url-shortener")
 .then(()=>{
@@ -25,12 +28,19 @@ connectDB("mongodb://127.0.0.1:27017/url-shortener")
 })
 
 app.use("/url",URLrouter)
+app.use("/",staticRoutes)
 
 
-app.get("/test",async (req,res)=>{
+app.get("/sdf",async (req,res)=>{
     const allurls = await URL.find({})
-    return res.render("home.ejs")
+    return res.render("home.ejs",{
+        urls:allurls,
+        name :"test"
+    })
 })
+
+
+
 
 app.listen(PORT,()=>{
     console.log(`Server is listening at PORT ${PORT}`)
