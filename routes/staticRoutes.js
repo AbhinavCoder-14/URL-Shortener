@@ -7,7 +7,10 @@ staticRoutes.get("/",async (req,res)=>{
     const allUrls = await URL.find({})
     res.render("home.ejs",{
         urls:allUrls
-    }) 
+    })
+
+
+    
 
 
 
