@@ -3,7 +3,7 @@ import path from "path"
 
 import { connectDB } from "./db/connect.js";
 import { URLrouter } from "./routes/url.js";
-import { URL } from "./controller/url.js";
+import { URL1 } from "./controller/url.js";
 import {staticRoutes} from "./routes/staticRoutes.js"
 
 const app = express();
@@ -32,7 +32,7 @@ app.use("/",staticRoutes)
 
 
 app.get("/sdf",async (req,res)=>{
-    const allurls = await URL.find({})
+    const allurls = await URL1.find({})
     return res.render("home.ejs",{
         urls:allurls,
         name :"test"
