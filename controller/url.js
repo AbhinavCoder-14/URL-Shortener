@@ -8,10 +8,10 @@ import axios from "axios";
 export const URL1 = mongoose.model("url",urlSchema)
 
 
-function isValidUrl(url1) {
+function isValidUrl(url) {
   try {
-    new URL(url1); // Built-in Node.js constructor
-    return true;
+    const nUrl = new URL(`${url}`); // Built-in Node.js constructor
+    return nUrl.protocol === "http:" || nUrl.protocol === "https:";
   } catch (err) {
     return false;
   }
@@ -29,13 +29,12 @@ async function isReachableUrl(url1) {
 
 export async function handleGenerateNewShortUrl(req,res) {
 
-    // const body = req.body;
-    const url1 = req.body.url?.trim(); // Add .trim()
+    const body = req.body;
+    const url1 = req.body.url.trim(); // Add .trim()
 
     console.log(`'${isValidUrl(url1)}'`)
 
-    if (!isValidUrl(url1)){
-        console.log("pass")
+    if (isValidUrl(url1)==false){
         return res.status(400).json({error:"Invalid format of URL1"})
     }
 
