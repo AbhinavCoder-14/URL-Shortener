@@ -5,6 +5,7 @@ import { connectDB } from "./db/connect.js";
 import { URLrouter } from "./routes/url.js";
 import { URL1 } from "./controller/url.js";
 import {staticRoutes} from "./routes/staticRoutes.js"
+import { userRoutes } from "./routes/user.js";
 
 const app = express();
 
@@ -29,15 +30,16 @@ connectDB("mongodb://127.0.0.1:27017/url-shortener")
 
 app.use("/url",URLrouter)
 app.use("/",staticRoutes)
+app.use("/user",userRoutes)
 
 
-app.get("/sdf",async (req,res)=>{
-    const allurls = await URL1.find({})
-    return res.render("home.ejs",{
-        urls:allurls,
-        name :"test"
-    })
-})
+// app.get("/sdf",async (req,res)=>{
+//     const allurls = await URL1.find({})
+//     return res.render("home.ejs",{
+//         urls:allurls,
+//         name :"test"
+//     })
+// })
 
 
 

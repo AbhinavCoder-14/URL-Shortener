@@ -66,7 +66,7 @@ export async function handleGenerateNewShortUrl(req,res) {
 }
 
 export async function handleGetReq(req,res) {
-    console.log("Entered in get request for the server")
+    // console.log("Entered in get request for the server")
 
     const  shortId = req.params.Sid
     const entry = await URL1.findOneAndUpdate(
@@ -80,7 +80,7 @@ export async function handleGetReq(req,res) {
             }
         },
     );
-    console.log(entry.redirectUrl)
+    // console.log(entry.redirectUrl)
     res.redirect(entry.redirectUrl)
 
 }

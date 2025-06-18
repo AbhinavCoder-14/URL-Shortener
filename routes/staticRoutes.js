@@ -9,12 +9,8 @@ staticRoutes.get("/",async (req,res)=>{
         urls:allUrls
     })
 
-
-
-
-
-
-
 })
+
+// staticRoutes
 
 
