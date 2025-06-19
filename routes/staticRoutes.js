@@ -11,6 +11,12 @@ staticRoutes.get("/",async (req,res)=>{
 
 })
 
-// staticRoutes
+staticRoutes.get("/signup",(req,res)=>{
+    return res.render("signup.ejs")
+})
+
+staticRoutes.get("/login",(req,res)=>{
+    return res.render("login.ejs")
+})
 
 

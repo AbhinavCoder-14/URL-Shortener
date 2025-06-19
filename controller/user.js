@@ -13,7 +13,6 @@ export async function handleSignUp(req,res) {
         name,
         email,
         password,
-
     });
     return res.redirect("/")
 }
@@ -27,9 +26,10 @@ export async function handleLogin(req,res) {
     const idenUser = await User.findOne({
         email , password
     })
+    console.log(idenUser)
     if(!idenUser){
-        return res.render("login.ejs",{error:"invalid user name or password"})
+        return res.render("login.ejs",{error:"Invalid user name or password"})
     }
 
-    return res.render("/")
+    return res.redirect("/")
 }
