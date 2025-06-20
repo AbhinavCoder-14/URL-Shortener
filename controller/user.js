@@ -1,5 +1,10 @@
 import mongoose from "mongoose"
+import {v4 as uuidv4} from "uuid"
+import {setUser} from "../service/auth.js"
+
 import { userSchema } from "../models/user.js"
+
+
 
 
 const User = mongoose.model("user",userSchema)
@@ -22,14 +27,21 @@ export async function handleSignUp(req,res) {
 
 export async function handleLogin(req,res) {
 
-    const {email,password} = req.body
-    const idenUser = await User.findOne({
-        email , password
-    })
-    console.log(idenUser)
-    if(!idenUser){
-        return res.render("login.ejs",{error:"Invalid user name or password"})
+    const {email,password} = req.body;
+
+    // console.log({email,password})
+    const user = await User.findOne({email,password})
+    console.log(user)
+    if(!user){
+        console.log("all set")
+        return res.render("login",{error:"Invalid email and password"})
     }
+
+    const sessionId = uuidv4();
+    setUser(sessionId,user)
+    res.cookie("uid",sessionId)
+    return res.redirect("/")
+
 
     return res.redirect("/")
 }

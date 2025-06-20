@@ -6,6 +6,9 @@ import { URLrouter } from "./routes/url.js";
 import { URL1 } from "./controller/url.js";
 import {staticRoutes} from "./routes/staticRoutes.js"
 import { userRoutes } from "./routes/user.js";
+import cookieParser from "cookie-parser";
+
+import { restrictToLoggedinUserOnly } from "./middlewares/auth.js";
 
 const app = express();
 
@@ -18,6 +21,7 @@ app.set("views",path.resolve("./views"))
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+app.use(cookieParser())
 
 connectDB("mongodb://127.0.0.1:27017/url-shortener")
 .then(()=>{
@@ -28,7 +32,7 @@ connectDB("mongodb://127.0.0.1:27017/url-shortener")
     console.log("Can't connect to MongoDB")
 })
 
-app.use("/url",URLrouter)
+app.use("/url",restrictToLoggedinUserOnly,URLrouter)
 app.use("/",staticRoutes)
 app.use("/user",userRoutes)
 
