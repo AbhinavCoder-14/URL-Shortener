@@ -8,7 +8,7 @@ import {staticRoutes} from "./routes/staticRoutes.js"
 import { userRoutes } from "./routes/user.js";
 import cookieParser from "cookie-parser";
 
-import { restrictToLoggedinUserOnly, checkAuth } from "./middlewares/auth.js";
+import { checkForAuthentication,restrictTo } from "./middlewares/auth.js";
 import { ftruncate } from "fs";
 
 const app = express();
@@ -33,8 +33,10 @@ connectDB("mongodb://127.0.0.1:27017/url-shortener")
     console.log("Can't connect to MongoDB")
 })
 
-app.use("/url",restrictToLoggedinUserOnly,URLrouter)
-app.use("/",checkAuth,staticRoutes)
+app.use(checkForAuthentication)
+
+app.use("/url",restrictTo(["NORMAL","ADMIN"]),URLrouter)
+app.use("/",staticRoutes)
 app.use("/user",userRoutes)
 
 

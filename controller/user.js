@@ -34,8 +34,8 @@ export async function handleLogin(req,res) {
         return res.render("login",{error:"Invalid email and password"})
     }
 
-    const uid = setUser(user);
-    res.cookie("uid",uid) 
+    const token = setUser(user);
+    res.cookie("token",token) 
 
     // return res.json({token})
     return res.redirect("/")
