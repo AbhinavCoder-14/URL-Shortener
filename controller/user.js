@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import {v4 as uuidv4} from "uuid"
+// import {v4 as uuidv4} from "uuid"
 
 import {setUser} from "../service/auth.js"
 import { userSchema } from "../models/user.js"
@@ -7,7 +7,7 @@ import { userSchema } from "../models/user.js"
 
 
 
-const User = mongoose.model("user",userSchema)
+export const User = mongoose.model("user",userSchema)
 
 
 
@@ -31,14 +31,13 @@ export async function handleLogin(req,res) {
 
     const user = await User.findOne({email,password})
     if(!user){
-        console.log("all set")
         return res.render("login",{error:"Invalid email and password"})
     }
 
-    const token = setUser(user);
-    // res.cookie("uid",token)
+    const uid = setUser(user);
+    res.cookie("uid",uid) 
 
-    return res.json({token})
-
+    // return res.json({token})
+    return res.redirect("/")
 
 }
