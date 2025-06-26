@@ -5,7 +5,7 @@ export const staticRoutes = express.Router()
 
 staticRoutes.get("/",async (req,res)=>{
     if (!req.user) return res.redirect("login")
-    const allUrls = await URL1.find({})
+    const allUrls = await URL1.find({createdBy:req.user._id})
     res.render("home.ejs",{
         urls:allUrls
     })
