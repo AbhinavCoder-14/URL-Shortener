@@ -23,7 +23,7 @@
             return jwt.verify(token,secret)
         }
         catch{
-            
+           return "wrong token" 
         }
         
     }

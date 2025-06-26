@@ -8,7 +8,8 @@ import {staticRoutes} from "./routes/staticRoutes.js"
 import { userRoutes } from "./routes/user.js";
 import cookieParser from "cookie-parser";
 
-import { restrictToLoggedinUserOnly } from "./middlewares/auth.js";
+import { restrictToLoggedinUserOnly, checkAuth } from "./middlewares/auth.js";
+import { ftruncate } from "fs";
 
 const app = express();
 
@@ -33,17 +34,9 @@ connectDB("mongodb://127.0.0.1:27017/url-shortener")
 })
 
 app.use("/url",restrictToLoggedinUserOnly,URLrouter)
-app.use("/",staticRoutes)
+app.use("/",checkAuth,staticRoutes)
 app.use("/user",userRoutes)
 
-
-// app.get("/sdf",async (req,res)=>{
-//     const allurls = await URL1.find({})
-//     return res.render("home.ejs",{
-//         urls:allurls,
-//         name :"test"
-//     })
-// })
 
 
 
